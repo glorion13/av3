@@ -24,9 +24,10 @@ initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
 
 [plane, fit] = fitplane(initialPoints);
 
-P = reshape(earlyFrame(:,:,1:3), 480*640, 3);
-
-[newlist, remaining] = getallpoints(plane, initialPoints, P, length(P));
+%P = reshape(earlyFrame(:,:,1:3), 480*640, 3);
+%[newlist, remaining] = getallpoints(plane, initialPoints, P, length(P));
+% [plane, fit] = fitplane(newlist);
+plane
 
 % Overlaying background image on the actual video
-remapped = remap(backgroundImage, transformedImages(:,:,:,3));
+remapped = remap(backgroundImage, transformedImages(:,:,:,15), plane);
