@@ -14,7 +14,7 @@ outimage = image(:,:,4:6);
 
 UV=zeros(4,2);
 XY=zeros(4,2);
-UV=[[41,130]',[39,429]',[474,453]',[476,91]']';    % target points
+UV=[[40,182]',[39,429]',[474,453]',[474,155]']';    % target points
 XY=[[1,1]',[1,IC]',[IR,IC]',[IR,1]']';    % source points
 
 P=esthomog(UV,XY,4);    % estimate homography mapping UV to XY
@@ -40,5 +40,3 @@ for c = 1 : OC
 end
 end
 
-figure(1)
-imshow(outimage)

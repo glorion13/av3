@@ -15,6 +15,8 @@ ySize = yRange(2) - yRange(1) + 1;
 images = readData(imagesDir);
 backgroundImage = imread(backgroundDir);
 
+[width,height,nChannels,nImages] = size(images);
+
 % Transforming images so that they are displayed correctly
 transformedImages = transformData(images);
 earlyFrame = transformedImages(:,:,:,2);
@@ -27,7 +29,9 @@ initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
 %P = reshape(earlyFrame(:,:,1:3), 480*640, 3);
 %[newlist, remaining] = getallpoints(plane, initialPoints, P, length(P));
 % [plane, fit] = fitplane(newlist);
-plane
+remapped = zeros(height,width,3,nImages);
 
 % Overlaying background image on the actual video
-remapped = remap(backgroundImage, transformedImages(:,:,:,15), plane);
+for i=1: nImages
+    remapped(:,:,:,i) = remap(backgroundImage, transformedImages(:,:,:,i), plane);
+end
