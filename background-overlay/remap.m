@@ -1,4 +1,6 @@
-function [ outimage ] = remap( inimage,outimage )
+function [ outimage ] = remap( inimage,image )
+
+outimage = image(:,:,4:6);
 
 % get input image and sizes
 %inimage=imread('field.jpg','jpg');
