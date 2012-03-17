@@ -1,4 +1,4 @@
 function normImage = normRGB(image)
-    image(:,:,4:6) / 255;
-    normImage = image;
+    normImage(:,:,1:3) = image(:,:,1:3);
+    normImage(:,:,4:6) = image(:,:,4:6) / 255;
 end
