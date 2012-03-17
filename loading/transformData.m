@@ -1,6 +1,5 @@
 function [ images ] = transformData( imgs )
-%TRANSFORMDATA Summary of this function goes here
-%   Detailed explanation goes here
+% normalises the images (so that RGB is in double as well) and transposes the data
 [width, height, channels, nImages] = size(imgs);
 images = zeros(height, width, channels, nImages);
 
