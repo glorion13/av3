@@ -3,9 +3,11 @@
 % Initialize data locations
 imagesDir = 'data/bindermat';
 backgroundDir = 'data/field.jpg';
-initialPointsXY = [87,176; 90,371;402,144;407,400]; % image (x, y)
+xRange = [87, 407];
+yRange = [176, 400];
 
-
+xSize = xRange(2) - xRange(1) + 1;
+ySize = yRange(2) - yRange(1) + 1;
 
 % Main loop
 
@@ -15,7 +17,16 @@ backgroundImage = imread(backgroundDir);
 
 % Transforming images so that they are displayed correctly
 transformedImages = transformData(images);
-initialPoints = getRange(transformedImages(:,:,:,2), initialPointsXY);
+earlyFrame = transformedImages(:,:,:,2);
+
+initialPoints = earlyFrame(xRange(1):xRange(2),yRange(1):yRange(2),1:3);
+initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
+
+[plane, fit] = fitplane(initialPoints);
+
+P = reshape(earlyFrame(:,:,1:3), 480*640, 3);
+
+[newlist, remaining] = getallpoints(plane, initialPoints, P, length(P));
 
 % Overlaying background image on the actual video
 remapped = remap(backgroundImage, transformedImages(:,:,:,3));
