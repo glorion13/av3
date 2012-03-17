@@ -3,8 +3,8 @@
 % Initialize data locations
 imagesDir = 'data/bindermat';
 backgroundDir = 'data/field.jpg';
-xRange = [87, 407];
-yRange = [176, 400];
+xRange = [130, 320];
+yRange = [250, 320];
 
 xSize = xRange(2) - xRange(1) + 1;
 ySize = yRange(2) - yRange(1) + 1;
