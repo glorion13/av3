@@ -5,7 +5,7 @@ function [ images ] = readData( path )
 listing = dir( path );
 
 nImages    = size( listing, 1 ) - 3;
-images     = zeros( 640, 480, 6, nImages, 'uint8' );
+images     = zeros( 640, 480, 6, nImages);
 
 
 for i = 1 : nImages
