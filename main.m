@@ -1,4 +1,4 @@
 % Main
 
-images = readData('bindermat');
+images = readData('data/bindermat');
 transformedImages = transformData(images);
