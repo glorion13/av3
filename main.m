@@ -51,7 +51,7 @@ for i=1: nImages
         pixelVals = getPixelVals(suitcaseCorners, transformedImages(:,:,:,i));
         orderedCorners = orderCorners(pixelVals);
         
-        if isSuitcase
+        if isSuitcase(quadPoints)
         
             % Load corresponding video frame
             listing = dir( videoDir );
@@ -64,6 +64,8 @@ for i=1: nImages
             imshow(remapped(:,:,4:6,i))
             figure(1)
         end
+            
+            
     end
 end
 
