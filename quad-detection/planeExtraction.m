@@ -1,4 +1,4 @@
-function [ oldlist ] = planeExtraction( image )
+function [ oldlist, plane ] = planeExtraction( image )
 
 
 im3d = image(:,:,1:3);
@@ -64,7 +64,6 @@ pause(1)
 
 
 %plot3(remaining(:,1),remaining(:,2),remaining(:,3),'y.')
-plane
 
 end
 
