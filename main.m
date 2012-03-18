@@ -31,10 +31,12 @@ initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
 %P = reshape(earlyFrame(:,:,1:3), 480*640, 3);
 %[newlist, remaining] = getallpoints(plane, initialPoints, P, length(P));
 % [plane, fit] = fitplane(newlist);
-remapped = zeros(height,width,3,nImages);
+remapped = zeros(height,width,6,nImages);
 
 % Overlaying background image on the actual video
 for i=1: nImages
+    
+    i
        
     % Remap field image as background image
     UV=[[40,182]',[39,429]',[474,453]',[474,155]']';    % target points
@@ -42,16 +44,26 @@ for i=1: nImages
     
     % Working on quad
     if i > 14 && i < 26
-        [ quadPoints ] = planeExtraction(transformedImages(:,:,:,i));
-        %suitcase = getCorners(quadPoints);
+        
+        [ quadPoints, suitcasePlane ] = planeExtraction(transformedImages(:,:,:,i));
+        suitcaseCorners = getCorners(quadPoints);
+        
+        pixelVals = getPixelVals(suitcaseCorners, transformedImages(:,:,:,i));
+        orderedCorners = orderCorners(pixelVals);
+        
+        if isSuitcase
+        
+            % Load corresponding video frame
+            listing = dir( videoDir );
+            imagePath = strcat(videoDir, '/', listing( i+3 ).name);
+            videoFrame = imread(imagePath);
 
-        % Load corresponding video frame
-        listing = dir( videoDir );
-        imagePath = strcat(videoDir, '/', listing( i+3 ).name);
-        videoFrame = imread(imagePath);
-
-        UV=[[40,182]',[39,429]',[474,453]',[474,155]']';    % target points
-        % remap on suitcase
+            % remap on suitcase
+            remapped(:,:,:,i) = remap(videoFrame, remapped(:,:,:,i), suitcasePlane, orderedCorners);
+            figure(3)
+            imshow(remapped(:,:,4:6,i))
+            figure(1)
+        end
     end
 end
 
