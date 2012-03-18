@@ -47,7 +47,7 @@ while stillgrowing
   figure(2)
   plot3(newlist(:,1),newlist(:,2),newlist(:,3),'r.')
     
-  if NewL > OldL + 1000
+  if NewL > OldL + 100
     % refit plane
     [newplane,fit] = fitplane(newlist);
     plane = newplane';
