@@ -64,6 +64,8 @@ for i=14: nImages
             imshow(remapped(:,:,4:6,i))
             figure(1)
         end
+            
+            
     end
 end
 

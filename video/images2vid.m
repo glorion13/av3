@@ -1,13 +1,11 @@
-function [  ] = images2vid(  )
+function M = images2vid( ims )
     
-    numImages = 10;
-    filename{numImages} = {};
-    filename(:) = {'depth_grey_0011.tif'};
+    numImages = 36;
     
     for i = 1 : numImages
         
         % generate an image from somewhere
-        im = imread(filename{i});
+        im = ims(:,:,4:6,i);
         imshow(im);
         
         % get a movie frame (a snapshot of the current axis)
@@ -19,4 +17,3 @@ function [  ] = images2vid(  )
     movie2avi(M, 'AV_movie.avi', 'FPS', fps);
 
 end
-

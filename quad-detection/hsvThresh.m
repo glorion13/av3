@@ -13,8 +13,8 @@ function outImage = hsvThresh(inImage)
     vPlane = hsvImage(:,:,3);
     
     % Find indeces that will be removed based on thresholding
-    hThresh = 1;%(hPlane<0.9)&(hPlane>0.8);
-    sThresh = 1;%(sPlane<0.6)&(sPlane>0.48);
+    hThresh = (hPlane<0.9)&(hPlane>0.8);
+    sThresh = (sPlane<0.6)&(sPlane>0.48);
     vThresh = (vPlane<0.25)&(vPlane>0.08);
     
     indeces = find(hThresh&sThresh&vThresh);
