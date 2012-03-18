@@ -13,11 +13,11 @@ function outImage = hsvThresh(inImage)
     vPlane = hsvImage(:,:,3);
     
     % Find indeces that will be removed based on thresholding
-    hThresh = (hPlane<0.9)&(hPlane>0.8);
-    sThresh = (sPlane<0.6)&(sPlane>0.48);
-    vThresh = (vPlane<0.12)&(vPlane>0.08);
+    hThresh = 1;%(hPlane<0.9)&(hPlane>0.8);
+    sThresh = 1;%(sPlane<0.6)&(sPlane>0.48);
+    vThresh = (vPlane<0.25)&(vPlane>0.08);
     
-    indeces = find(hThresh&sThresh&vThresh)
+    indeces = find(hThresh&sThresh&vThresh);
     
     % Set the selected pixel saturations to 0
     sPlane(indeces) = 0;
@@ -27,12 +27,12 @@ function outImage = hsvThresh(inImage)
     
     % Convert the image back to RGB space
     outImage = hsv2rgb(hsvImage);
-    outImage = rgbToGray(outImage);
+    %outImage = rgbToGray(outImage);
     
     % Remove selected pixels
-    outImage(indeces) = 0;
+    outImage(indeces) = 255;
     %outImage(~indeces) = 1;
     figure(1);
-    imshow(mat2gray(outImage));
+    imshow(outImage);
     
 end

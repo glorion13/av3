@@ -12,11 +12,11 @@ function outImage = rgbThresh(inImage)
     bPlane = rgbImage(:,:,3);
     
     % Find indeces that will be removed based on thresholding
-    rThresh = (rPlane<0.16)&(rPlane>0.058);
-    gThresh = (gPlane<0.09)&(gPlane>0.035);
-    bThresh = (bPlane<0.15)&(bPlane>0.03);
+    rThresh = (rPlane<0.176)&(rPlane>0.047);
+    gThresh = (gPlane<0.09)&(gPlane>0.027);
+    bThresh = (bPlane<0.15)&(bPlane>0.007);
     
-    indeces = find(~(rThresh&gThresh&bThresh));
+    indeces = find((rThresh&gThresh&bThresh));
     
     outImage = rgbImage;
     
