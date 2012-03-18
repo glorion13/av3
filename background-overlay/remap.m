@@ -1,6 +1,4 @@
-function [ finalImage ] = remap( inimage,image, plane, UV )
-
-    DISTTOL = 0.05;
+function [ finalImage ] = remap( inimage,image, plane, UV, DISTTOL )
 
     outimage = image(:,:,4:6);
 
