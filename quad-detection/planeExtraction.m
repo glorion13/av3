@@ -20,7 +20,7 @@ hold on
 plot3(initialPts(:,1),initialPts(:,2),initialPts(:,3),'k.')
 pause(5)
 
-[NPts,W] = size(R);
+[NPts, W] = size(R);
 plane = zeros(20);
 
 % find surface patches
@@ -47,7 +47,7 @@ while stillgrowing
   figure(2)
   plot3(newlist(:,1),newlist(:,2),newlist(:,3),'r.')
     
-  if NewL > OldL + 1000
+  if NewL > OldL + 100
     % refit plane
     [newplane,fit] = fitplane(newlist);
     plane = newplane';
