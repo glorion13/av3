@@ -40,7 +40,7 @@ for i=1: nImages
        
     % Remap field image as background image
     UV=[[40,182]',[39,429]',[474,453]',[474,155]']';    % target points
-    remapped(:,:,:,i) = remap(backgroundImage, transformedImages(:,:,:,i), plane, UV);
+    remapped(:,:,:,i) = remap(backgroundImage, transformedImages(:,:,:,i), plane, UV, 0.05);
     
     % Working on quad
     if i > 14 && i < 26
@@ -59,7 +59,7 @@ for i=1: nImages
             videoFrame = imread(imagePath);
 
             % remap on suitcase
-            remapped(:,:,:,i) = remap(videoFrame, remapped(:,:,:,i), suitcasePlane, orderedCorners);
+            remapped(:,:,:,i) = remap(videoFrame, remapped(:,:,:,i), suitcasePlane, orderedCorners, 0.02);
             figure(3)
             imshow(remapped(:,:,4:6,i))
             figure(1)
