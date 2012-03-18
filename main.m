@@ -34,7 +34,7 @@ initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
 remapped = zeros(height,width,6,nImages);
 
 % Overlaying background image on the actual video
-for i=1: nImages
+for i=14: nImages
     
     i
        

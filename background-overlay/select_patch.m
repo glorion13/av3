@@ -27,12 +27,12 @@ function [fitlist,plane] = select_patch(points)
     end
     oldlist = tmprest(1:restcount,:);
 
-    if fitcount > 20
+    if fitcount > 500
       % fit a plane
       fitcount
       [plane,resid] = fitplane(tmpnew(1:fitcount,:))
 
-      if resid < 0.01
+      if resid < 0.005
         fitlist = tmpnew(1:fitcount,:);
         return
       end
