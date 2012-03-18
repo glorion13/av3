@@ -3,6 +3,8 @@
 % Initialize data locations
 imagesDir = 'data/bindermat';
 backgroundDir = 'data/field.jpg';
+videoDir = 'data/video';
+
 xRange = [130, 320];
 yRange = [250, 320];
 
@@ -13,6 +15,7 @@ ySize = yRange(2) - yRange(1) + 1;
 
 % Loading data
 images = readData(imagesDir);
+videoImages = loadVideo(videoDir);
 backgroundImage = imread(backgroundDir);
 
 [width,height,nChannels,nImages] = size(images);
@@ -33,12 +36,18 @@ remapped = zeros(height,width,3,nImages);
 
 % Overlaying background image on the actual video
 for i=1: nImages
+       
+    % Remap field image as background image
     UV=[[40,182]',[39,429]',[474,453]',[474,155]']';    % target points
     remapped(:,:,:,i) = remap(backgroundImage, transformedImages(:,:,:,i), plane, UV);
     
     % Working on quad
     [ quadPoints ] = planeExtraction(transformedImages(:,:,:,i));
     suitcase = getCorners(quadPoints);
+    
+    % Load corresponding video frame
+    imagePath = strcat(path, '/', listing( i+3 ).name);
+    videoFrame = imread(imagePath);
     
     UV=[[40,182]',[39,429]',[474,453]',[474,155]']';    % target points
     % remap on suitcase
