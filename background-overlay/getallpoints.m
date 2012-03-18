@@ -1,12 +1,11 @@
 % selects all points in pointlist P that fit the plane and are within
 % TOL of a point already in the plane (oldlist)
-function [newlist,remaining] = getallpoints(plane,oldlist,P,NP)
+function [newlist,remaining] = getallpoints(plane,oldlist,P,NP, DISTTOL,PLANETOL)
 
   pnt = ones(4,1);
   [N,W] = size(P);
   [Nold,W] = size(oldlist);
-  DISTTOL = 0.05;
-  PLANETOL = 10;
+
   tmpnewlist = zeros(NP,3);
   tmpnewlist(1:Nold,:) = oldlist;       % initialize fit list
   tmpremaining = zeros(NP,3);           % initialize unfit list
