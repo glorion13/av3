@@ -34,7 +34,7 @@ initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
 remapped = zeros(height,width,6,nImages);
 
 % Overlaying background image on the actual video
-for i=1: nImages
+for i=24: nImages
     
     i
        
@@ -45,7 +45,14 @@ for i=1: nImages
     % Working on quad
     if i > 14 && i < 26
         
-        [ quadPoints, suitcasePlane ] = planeExtraction(transformedImages(:,:,:,i));
+        for j=1:5
+            frame = i
+            attempt = j
+            [ quadPoints, suitcasePlane ] = planeExtraction(transformedImages(:,:,:,i));
+            if isSuitcase(quadPoints)
+                break;
+            end
+        end
         suitcaseCorners = getCorners(quadPoints);
         
         pixelVals = getPixelVals(suitcaseCorners, transformedImages(:,:,:,i));
