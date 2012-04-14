@@ -4,7 +4,7 @@ function [ oldlist, plane ] = planeExtraction( image )
 im3d = image(:,:,1:3);
 imRGB= image(:,:,4:6);
 
-binary = rgbThresh(imRGB);
+binary = hsvThresh(imRGB);
 excludingNonBag = handRemoval(imRGB);
 
 initialPts = im3d(repmat(binary,[1 1 3]));

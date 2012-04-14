@@ -1,4 +1,4 @@
-function outImage = hsvThresh(inImage)
+function binarised = hsvThresh(inImage)
 
     % Convert the image to the HSV space
     hsvImage = rgb2hsv(inImage);
@@ -12,27 +12,31 @@ function outImage = hsvThresh(inImage)
     % Get the value plane
     vPlane = hsvImage(:,:,3);
     
-    % Find indeces that will be removed based on thresholding
-    hThresh = (hPlane<0.9)&(hPlane>0.8);
-    sThresh = (sPlane<0.6)&(sPlane>0.48);
-    vThresh = (vPlane<0.25)&(vPlane>0.08);
+    valThresh = 0.8 * mean(mean(vPlane))^2;     % relative to background brightness
     
-    indeces = find(hThresh&sThresh&vThresh);
+    % Find indeces that will be removed based on thresholding
+  %  hThresh = (hPlane<0.9 ) & (hPlane>0.8 );
+  %  sThresh = (sPlane<0.6 ) & (sPlane>0.48);
+    vThresh = (vPlane < valThresh ) & (vPlane>0);
+    
+    binarised = vThresh;
     
     % Set the selected pixel saturations to 0
-    sPlane(indeces) = 0;
+ %   sPlane(indeces) = 0;
 
     % Update the saturation plane of the image
-    hsvImage(:,:,2) = sPlane;
+ %   hsvImage(:,:,2) = sPlane;
     
     % Convert the image back to RGB space
-    outImage = hsv2rgb(hsvImage);
+ %   outImage = hsv2rgb(hsvImage);
     %outImage = rgbToGray(outImage);
     
     % Remove selected pixels
-    outImage(indeces) = 255;
+ %   outImage(indeces) = 255;
     %outImage(~indeces) = 1;
-    figure(1);
-    imshow(outImage);
+    %figure(1);
+    %imshow(hsvImage);
+    %figure(2);
+    %imshow(outImage);
     
 end
