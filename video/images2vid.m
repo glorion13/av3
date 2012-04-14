@@ -10,6 +10,7 @@ function M = images2vid( ims )
         
         % get a movie frame (a snapshot of the current axis)
         M(i) = getframe(gcf);
+        pause(0.6)
     end
     
     % write movie object to disk

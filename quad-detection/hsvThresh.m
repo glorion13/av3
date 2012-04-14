@@ -1,5 +1,7 @@
 function binarised = hsvThresh(inImage)
 
+    % Performs HSV Tresholding on a given image.
+
     % Convert the image to the HSV space
     hsvImage = rgb2hsv(inImage);
     
