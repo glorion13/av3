@@ -29,7 +29,7 @@ function [ finalImage ] = remap( inimage,image, plane, UV, DISTTOL )
           pnt(1:3) = image(r,c,1:3);
 
           if (x >= 1) && (x <= IC) && (y >= 1) && (y <= IR) && ...
-                  abs(pnt'*plane) < DISTTOL
+                  (abs(pnt'*plane) < DISTTOL || pnt(3)==0 )
             outimage(r,c,:)=inimage(y,x,:)/255;   % transfer colour
           end
         end
