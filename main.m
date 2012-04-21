@@ -81,3 +81,5 @@ for i=1: nImages
     imshow(images(:,:,4:6,i));
 end
 
+% create the AV.avi video of all the frames
+generateVideo(images);
