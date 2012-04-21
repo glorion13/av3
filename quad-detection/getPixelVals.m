@@ -1,5 +1,9 @@
 function [ corners ] = getPixelVals( corners3d, image )
 
+    % getPixelVals
+    % This function gets the corners of the quad in 3D space and finds the
+    % corresponding pixel of each in an image.
+
     [r1,c1] = find((image(:,:,1) == corners3d(1,1)) & (image(:,:,2) == corners3d(1,2)) & (image(:,:,3) == corners3d(1,3)));
     [r2,c2] = find((image(:,:,1) == corners3d(2,1)) & (image(:,:,2) == corners3d(2,2)) & (image(:,:,3) == corners3d(2,3)));
     [r3,c3] = find((image(:,:,1) == corners3d(3,1)) & (image(:,:,2) == corners3d(3,2)) & (image(:,:,3) == corners3d(3,3)));

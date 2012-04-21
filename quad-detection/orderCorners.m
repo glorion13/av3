@@ -1,5 +1,8 @@
 function [ outputCorners ] = orderCorners( inputCorners )
 
+    % This function gets a list 4 of corners and using their angle from the
+    % centre of the quad, sorts them from top left to bottom right (clockwise).
+
     corners(:,1) = inputCorners(:,2);
     corners(:,2) = inputCorners(:,1);
 

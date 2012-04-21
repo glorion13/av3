@@ -1,5 +1,7 @@
 function indeces = handRemoval(inImage)
     
+    % Performs RGB Thresholding on a given image.
+
     rgbImage = inImage;
 
     % Get the red plane
