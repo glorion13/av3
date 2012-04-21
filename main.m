@@ -37,7 +37,7 @@ initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
 % [plane, fit] = fitplane(newlist);
 
 % Overlaying background image on the actual video
-for i=23: nImages
+for i=1: nImages
     
     frame = i
     
