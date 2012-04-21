@@ -4,8 +4,8 @@ function [ oldlist, plane ] = planeExtraction( image )
 im3d = image(:,:,1:3);
 imRGB= image(:,:,4:6);
 
-binary = hsvThresh(imRGB);
-excludingNonBag = handRemoval(imRGB);
+binary = hsvThresh(imRGB, 0.8);
+excludingNonBag = hsvThresh(imRGB, 1.6);
 
 initialPts = im3d(repmat(binary,[1 1 3]));
 inclusiveBagPts = im3d(repmat(excludingNonBag,[1 1 3]));
@@ -18,7 +18,7 @@ figure(1)
 clf
 hold on
 plot3(initialPts(:,1),initialPts(:,2),initialPts(:,3),'k.')
-pause(5)
+pause(0.01)
 
 [NPts, W] = size(R);
 plane = zeros(20);
@@ -35,11 +35,13 @@ remaining = inclusiveBagPts;
 % grow patch
 stillgrowing = 1;
 
+DISTTOL  = 0.01;
+PLANETOL = 0.015;   %don't check distance to the closest point
+
 while stillgrowing
 
-  DISTTOL  = 0.01;
-  PLANETOL = 0.05;   %don't check distance to the closest point
 % find neighbouring points that lie in plane
+
   stillgrowing = 0;
   [newlist,remaining] = getallpoints(plane,oldlist,remaining,NPts,DISTTOL,PLANETOL);
   [NewL,W] = size(newlist);
@@ -47,11 +49,12 @@ while stillgrowing
   figure(2)
   plot3(newlist(:,1),newlist(:,2),newlist(:,3),'r.')
     
-  if NewL > OldL + 100
+  if (NewL > OldL + 1) % TODO: look at this param
     % refit plane
     [newplane,fit] = fitplane(newlist);
     plane = newplane';
     if fit > 0.04*NewL       % bad fit - stop growing
+      badFit = fit
       break
     end
     stillgrowing = 1;
@@ -59,9 +62,6 @@ while stillgrowing
     plane = newplane;
   end
 end
-
-pause(1)
-
 
 %plot3(remaining(:,1),remaining(:,2),remaining(:,3),'y.')
 
