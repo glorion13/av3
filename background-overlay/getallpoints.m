@@ -33,7 +33,4 @@ function [newlist,remaining] = getallpoints(plane,oldlist,P,NP, DISTTOL,PLANETOL
 
   newlist = tmpnewlist(1:countnew,:);
   remaining = tmpremaining(1:countrem,:);
-countnew
-countrem
-Nold
 
