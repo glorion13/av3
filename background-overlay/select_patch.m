@@ -32,8 +32,8 @@ function [fitlist,plane] = select_patch(points)
     if fitcount > 1500
       % fit a plane
       [plane,resid] = fitplane(tmpnew(1:fitcount,:));
-      fitcount
-      resid
+      %fitcount
+      %resid
       
       residErrTol = residErrTol + 0.00002;
       

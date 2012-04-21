@@ -35,17 +35,26 @@ remaining = inclusiveBagPts;
 % grow patch
 stillgrowing = 1;
 
-DISTTOL  = 0.01;
-PLANETOL = 0.015;   %don't check distance to the closest point
+DISTTOL  = 0.015;
+PLANETOL = 0.01;   %don't check distance to the closest point
+
+pointsAdded = size( oldlist, 1 );
 
 while stillgrowing
 
 % find neighbouring points that lie in plane
 
   stillgrowing = 0;
-  [newlist,remaining] = getallpoints(plane,oldlist,remaining,NPts,DISTTOL,PLANETOL);
+  [newlist,remaining] = getallpoints(plane,oldlist((end-pointsAdded + 1):end,:),remaining,NPts,DISTTOL,PLANETOL);
+  
+  
+  newlist = [ oldlist ; newlist ];
+  
   [NewL,W] = size(newlist);
   [OldL,W] = size(oldlist);
+  
+  pointsAdded = NewL - OldL;
+  
   figure(2)
   plot3(newlist(:,1),newlist(:,2),newlist(:,3),'r.')
     

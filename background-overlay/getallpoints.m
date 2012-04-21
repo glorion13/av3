@@ -7,26 +7,22 @@ function [newlist,remaining] = getallpoints(plane,oldlist,P,NP, DISTTOL,PLANETOL
   [Nold,W] = size(oldlist);
 
   tmpnewlist = zeros(NP,3);
-  tmpnewlist(1:Nold,:) = oldlist;       % initialize fit list
+ % tmpnewlist(1:Nold,:) = oldlist;       % initialize fit list
   tmpremaining = zeros(NP,3);           % initialize unfit list
-  countnew = Nold;
+  countnew = 0; %Nold;
   countrem = 0;
  
   for i = 1 : N
     pnt(1:3) = P(i,:);
     notused = 1;
 
-    % see if point lies in the plane
-    if abs(pnt'*plane) < DISTTOL
-      % see if an existing nearby point already in the set
-      for k = 1 : Nold
-        if norm(oldlist(k,:) - P(i,:)) < PLANETOL
-          countnew = countnew + 1;
-          tmpnewlist(countnew,:) = P(i,:);
-          notused = 0;
-          break;
+
+    if abs(pnt'*plane) < PLANETOL
+        if any( sum( (oldlist - repmat( P(i,:), Nold,1 ) ) .^ 2, 2 ) < DISTTOL * DISTTOL )
+            countnew = countnew + 1;
+            tmpnewlist(countnew,:) = P(i,:);
+            notused = 0;
         end
-      end      
     end
   
     if notused
