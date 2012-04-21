@@ -14,11 +14,11 @@ R = reshape(im3d, 640*480,3); % 3d points
 initialPts = reshape(initialPts, length(initialPts)/3,3);
 inclusiveBagPts = reshape(inclusiveBagPts, length(inclusiveBagPts)/3,3);
 
-figure(1)
-clf
-hold on
-plot3(initialPts(:,1),initialPts(:,2),initialPts(:,3),'k.')
-pause(0.01)
+%figure(1)
+%clf
+%hold on
+%plot3(initialPts(:,1),initialPts(:,2),initialPts(:,3),'k.')
+%pause(0.01)
 
 [NPts, W] = size(R);
 plane = zeros(20);
@@ -35,7 +35,7 @@ remaining = inclusiveBagPts;
 % grow patch
 stillgrowing = 1;
 
-DISTTOL  = 0.015;
+DISTTOL  = 0.01;
 PLANETOL = 0.01;   %don't check distance to the closest point
 
 pointsAdded = size( oldlist, 1 );
@@ -55,10 +55,10 @@ while stillgrowing
   
   pointsAdded = NewL - OldL;
   
-  figure(2)
-  plot3(newlist(:,1),newlist(:,2),newlist(:,3),'r.')
+ % figure(2)
+ % plot3(newlist(:,1),newlist(:,2),newlist(:,3),'r.')
     
-  if (NewL > OldL + 1) % TODO: look at this param
+  if (pointsAdded > 10) % TODO: look at this param
     % refit plane
     [newplane,fit] = fitplane(newlist);
     plane = newplane';
