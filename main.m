@@ -15,7 +15,7 @@ ySize = yRange(2) - yRange(1) + 1;
 
 % Loading data
 images = readData(imagesDir);
-backgroundImage = imread(backgroundDir);
+backgroundImage = double(imread(backgroundDir));
 
 [width,height,nChannels,nImages] = size(images);
 
@@ -34,7 +34,7 @@ initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
 remapped = zeros(height,width,6,nImages);
 
 % Overlaying background image on the actual video
-for i=24: nImages
+for i=1: nImages
     
     i
        
@@ -43,9 +43,9 @@ for i=24: nImages
     remapped(:,:,:,i) = remap(backgroundImage, transformedImages(:,:,:,i), plane, UV, 0.05);
     
     % Working on quad
-    if i > 14 && i < 26
+    if i > 13 && i < 29
         
-        for j=1:5
+        for j=1:3
             frame = i
             attempt = j
             [ quadPoints, suitcasePlane ] = planeExtraction(transformedImages(:,:,:,i));
@@ -63,7 +63,7 @@ for i=24: nImages
             % Load corresponding video frame
             listing = dir( videoDir );
             imagePath = strcat(videoDir, '/', listing( i+3 ).name);
-            videoFrame = imread(imagePath);
+            videoFrame = double(imread(imagePath));
 
             % remap on suitcase
             remapped(:,:,:,i) = remap(videoFrame, remapped(:,:,:,i), suitcasePlane, orderedCorners, 0.02);
