@@ -14,14 +14,7 @@ R = reshape(im3d, 640*480,3); % 3d points
 initialPts = reshape(initialPts, length(initialPts)/3,3);
 inclusiveBagPts = reshape(inclusiveBagPts, length(inclusiveBagPts)/3,3);
 
-%figure(1)
-%clf
-%hold on
-%plot3(initialPts(:,1),initialPts(:,2),initialPts(:,3),'k.')
-%pause(0.01)
-
-[NPts, W] = size(R);
-plane = zeros(20);
+[NPts, ~] = size(R);
 
 % find surface patches
 % here just get 5 first planes - a more intelligent process should be
@@ -55,15 +48,11 @@ while stillgrowing
   
   pointsAdded = NewL - OldL;
   
- % figure(2)
- % plot3(newlist(:,1),newlist(:,2),newlist(:,3),'r.')
-    
+  
   if (pointsAdded > 10) % TODO: look at this param
     % refit plane
     [newplane,fit] = fitplane(newlist);
-    plane = newplane';
     if fit > 0.04*NewL       % bad fit - stop growing
-      badFit = fit
       break
     end
     stillgrowing = 1;
@@ -71,8 +60,6 @@ while stillgrowing
     plane = newplane;
   end
 end
-
-%plot3(remaining(:,1),remaining(:,2),remaining(:,3),'y.')
 
 end
 

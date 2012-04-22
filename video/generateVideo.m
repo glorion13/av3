@@ -1,4 +1,4 @@
-function generateVideo(remapped)
+function generateVideo(images)
 
     % Generates a video from the individual frames
 
@@ -7,7 +7,7 @@ function generateVideo(remapped)
     vw.open();
 
     for i = 1:36
-        image = remapped(:,:,4:6,i);
+        image = images(:,:,4:6,i);
         imshow(image);
         writeVideo(vw,getframe(gcf));
     end

@@ -42,7 +42,7 @@ for i=1: nImages
         
     % In case of a very improbable event of not finding the best fitting
     % plane, while there is one, run the algorithm again
-    for j=1:2      
+    for j=1:1      
         attempt = j
         [ quadPoints, suitcasePlane ] = planeExtraction(images(:,:,:,i));
         if isSuitcase(quadPoints)
