@@ -26,6 +26,8 @@ backgroundImage = double(imread(backgroundDir));
 images = transformData(images);
 earlyFrame = images(:,:,:,2);
 
+writeImgs(images,1:nImages, 'original');
+
 % Compute Background overlaying plane
 initialPoints = earlyFrame(xRange(1):xRange(2),yRange(1):yRange(2),1:3);
 initialPoints = reshape(initialPoints(:,:,1:3), xSize*ySize, 3);
@@ -42,23 +44,23 @@ for i=1: nImages
     frame = i
     
     % Working on quad
-    if i > 13 && i < 29
+    %if i > 13 && i < 29
         
-        for j=1:3
-            frame = i
+        for j=1:2
             attempt = j
             [ quadPoints, suitcasePlane ] = planeExtraction(images(:,:,:,i));
             if isSuitcase(quadPoints)
                 break;
             end
         end
-        suitcaseCorners = getCorners(quadPoints);
-        
-        pixelVals = getPixelVals(suitcaseCorners, images(:,:,:,i));
-        orderedCorners = orderCorners(pixelVals);
         
         if isSuitcase(quadPoints)
-        
+            
+            % find ordered corners of the suitcase
+            suitcaseCorners = getCorners(quadPoints);
+            pixelVals = getPixelVals(suitcaseCorners, images(:,:,:,i));
+            orderedCorners = orderCorners(pixelVals);
+            
             % Load corresponding video frame
             listing = dir( videoDir );
             imagePath = strcat(videoDir, '/', listing( i+3 ).name);
@@ -66,13 +68,13 @@ for i=1: nImages
 
             % remap on suitcase
             images(:,:,:,i) = remap(videoFrame, images(:,:,:,i), suitcasePlane, orderedCorners, 0.02);
-
+            writeImgs(images,i, 'quad');
         end            
-    end
+    %end
     
     % Make pixels without any value into background pixels
     images(:,:,:,i) = fillMissingVals(images(:,:,:,i), earlyFrame(:,:,4:6));
-       
+    writeImgs(images,i, 'fill');   
     % Remap field image as background image
     UV=backgroundCorners;    % target points
     images(:,:,:,i) = remap(backgroundImage, images(:,:,:,i), plane, UV, 0.05);
@@ -83,3 +85,4 @@ end
 
 % create the AV.avi video of all the frames
 generateVideo(images);
+writeImgs(images,1:nImages, 'final');
