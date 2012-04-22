@@ -1,13 +1,12 @@
-% selects all points in pointlist P that fit the plane and are within
-% TOL of a point already in the plane (oldlist)
 function [newlist,remaining] = getallpoints(plane,oldlist,P,NP, DISTTOL,PLANETOL)
+% selects all points in pointlist P that fit the plane and are within
+% TOL of points added newly to the list of points in the plane.
 
   pnt = ones(4,1);
   [N,W] = size(P);
   [Nold,W] = size(oldlist);
 
   tmpnewlist = zeros(NP,3);
- % tmpnewlist(1:Nold,:) = oldlist;       % initialize fit list
   tmpremaining = zeros(NP,3);           % initialize unfit list
   countnew = 0; %Nold;
   countrem = 0;
@@ -18,7 +17,7 @@ function [newlist,remaining] = getallpoints(plane,oldlist,P,NP, DISTTOL,PLANETOL
 
 
     if abs(pnt'*plane) < PLANETOL
-        if any( sum( (oldlist - repmat( P(i,:), Nold,1 ) ) .^ 2, 2 ) < DISTTOL * DISTTOL )
+        if any( sum((oldlist - repmat( P(i,:), Nold,1)) .^ 2, 2 ) < DISTTOL^2 )
             countnew = countnew + 1;
             tmpnewlist(countnew,:) = P(i,:);
             notused = 0;
