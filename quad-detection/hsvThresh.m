@@ -23,24 +23,24 @@ function binarised = hsvThresh(inImage, val)
     
     binarised = vThresh;
     
-    indeces = find(binarised);
+    %indeces = find(binarised);
     
     % Set the selected pixel saturations to 0
-    sPlane(indeces) = 0;
+    %sPlane(indeces) = 0;
 
     % Update the saturation plane of the image
-    hsvImage(:,:,2) = sPlane;
+    %hsvImage(:,:,2) = sPlane;
     
     % Convert the image back to RGB space
-    outImage = hsv2rgb(hsvImage);
+    %outImage = hsv2rgb(hsvImage);
     %outImage = rgbToGray(outImage);
     
     % Remove selected pixels
-    outImage(indeces) = 255;
+    %outImage(indeces) = 255;
     %outImage(~indeces) = 1;
-    figure(1);
-    imshow(hsvImage);
-    figure(2);
-    imshow(outImage);
+    %figure(1);
+    %imshow(hsvImage);
+    %figure(2);
+    %imshow(outImage);
     
 end

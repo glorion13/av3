@@ -5,11 +5,15 @@ function [fitlist,plane] = select_patch(points)
   tmpnew = zeros(L,3);
   tmprest = zeros(L,3);
   
-  residErrTol = 0.01;
-
-  % pick a random point until a successful plane is found
-  success = 0;
-  while ~success
+  initialErrTol = 0.01;
+  maximumErrTol = 0.04;
+  nSteps        = 500;
+  
+  residErrTol   = initialErrTol;
+  stepSize      = (maximumErrTol - initialErrTol) / nSteps;
+  % pick a random point until a successful plane is found or no plane can
+  % be found (allow for 500 random point selections)
+  for i=1:nSteps 
     idx = floor((L-1)*rand)+1;   % avoiding accesing element at 0
     pnt = points(idx,:);
 
@@ -36,11 +40,16 @@ function [fitlist,plane] = select_patch(points)
       %fitcount
       %resid
       
-      residErrTol = residErrTol *1.005;
-      
       if resid < residErrTol
         fitlist = tmpnew(1:fitcount,:);
         return
       end
     end
-  end  
+    
+    %increase allowed error tolerance
+    residErrTol = residErrTol + stepSize;
+  end
+  
+  % no plane found - return points which will fail.
+  fitlist=oldlist;
+  plane=[1; 1; 1; 1];

@@ -4,11 +4,11 @@ function [ oldlist, plane ] = planeExtraction( image )
 im3d = image(:,:,1:3);
 imRGB= image(:,:,4:6);
 
-binary = hsvThresh(imRGB, 0.8);
-excludingNonBag = hsvThresh(imRGB, 1.6);
+initialPtsBinary = hsvThresh(imRGB, 0.8) & hasRangeData(im3d);
+inclusiveBagPtsBinary = hsvThresh(imRGB, 1.6) & hasRangeData(im3d);
 
-initialPts = im3d(repmat(binary,[1 1 3]));
-inclusiveBagPts = im3d(repmat(excludingNonBag,[1 1 3]));
+initialPts = im3d(repmat(initialPtsBinary,[1 1 3]));
+inclusiveBagPts = im3d(repmat(inclusiveBagPtsBinary,[1 1 3]));
 
 R = reshape(im3d, 640*480,3); % 3d points
 initialPts = reshape(initialPts, length(initialPts)/3,3);
