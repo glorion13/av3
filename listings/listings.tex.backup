@@ -1,0 +1,101 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
+\lstset{
+        backgroundcolor=\color{lbcolor},
+        tabsize=4,
+        rulecolor=,
+        language=matlab,
+        basicstyle=\footnotesize\ttfamily,
+        upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+        numbers=left
+}
+
+\title{  } 
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+
+\newpage
+\section{Appendix A: Code Listings}
+
+\subsection{File: main.m}
+\lstinputlisting{../main.m}
+\subsection{File: hsvThresh.m}
+\lstinputlisting{../quad-detection/hsvThresh.m}
+\subsection{File: planeExtraction.m}
+\lstinputlisting{../quad-detection/planeExtraction.m}
+\subsection{File: select\_patch.m}
+\lstinputlisting{../background-overlay/select_patch.m }
+\subsection{File: getallpoints.m}
+\lstinputlisting{../background-overlay/getallpoints.m }
+\subsection{File: getCorners.m}
+\lstinputlisting{../quad-detection/getCorners.m}
+\subsection{File: orderCorners.m}
+\lstinputlisting{../quad-detection/orderCorners.m}
+
+\subsection{File: fillMissingVals.m}
+\lstinputlisting{../background-overlay/fillMissingVals.m }
+\subsection{File: getRange.m}
+\lstinputlisting{../background-overlay/getRange.m }
+\subsection{File: remap.m}
+\lstinputlisting{../background-overlay/remap.m }
+
+
+
+\subsection{File: transformData.m}
+\lstinputlisting{../loading/transformData.m}
+\subsection{File: readData.m}
+\lstinputlisting{../loading/readData.m}
+\subsection{File: normRGB.m}
+\lstinputlisting{../loading/normRGB.m}
+
+
+\subsection{File: get3dLen.m}
+\lstinputlisting{../quad-detection/get3dLen.m}
+
+\subsection{File: getPixelVals.m}
+\lstinputlisting{../quad-detection/getPixelVals.m}
+\subsection{File: hasRangeData.m}
+\lstinputlisting{../quad-detection/hasRangeData.m}
+\subsection{File: getPixelVals.m}
+\lstinputlisting{../quad-detection/getPixelVals.m}
+
+\subsection{File: isSuitcase.m}
+\lstinputlisting{../quad-detection/isSuitcase.m}
+
+
+\subsection{File: generateVideo.m}
+\lstinputlisting{../video/generateVideo.m}
+\subsection{File: writeImgs.m}
+\lstinputlisting{../video/writeImgs.m}
+
+
+
+
+\end{document}
