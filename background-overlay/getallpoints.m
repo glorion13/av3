@@ -17,6 +17,8 @@ function [newlist,remaining] = getallpoints(plane,oldlist,P,NP, DISTTOL,PLANETOL
 
 
     if abs(pnt'*plane) < PLANETOL
+        % speed optimisation of vectorising the for loop was suggested 
+        % by Cristian Cobzarenco
         if any( sum((oldlist - repmat( P(i,:), Nold,1)) .^ 2, 2 ) < DISTTOL^2 )
             countnew = countnew + 1;
             tmpnewlist(countnew,:) = P(i,:);
